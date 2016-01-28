@@ -1,0 +1,34 @@
+<ion-view view-title="扫码结算">
+  
+  <ion-nav-buttons side="right">
+    <a class="button button-icon icon ion-ios-barcode-outline" on-touch="actions.scan()"></a>
+  </ion-nav-buttons>
+
+  <ion-content>
+    <form class="form-horizontal w5c-form" w5c-form-validate="" w5c-submit="actions.check()" role="form" novalidate name="form_medi_check">
+      <ion-list>
+        <ion-item class="no-padding-tb">
+          <div class="item-input">
+            <span class="input-label">消费金额: <span class="assertive" ng-if="payBill.available === undefined">请扫码</span></span>
+            <input type="number" autofocus="" placeholder="用户余额: {{payBill.available | currency: '￥'}}" ng-model="payBill.money" required="" name="money" min="0.01" max="{{payBill.available}}" class="min-height" ng-if="payBill.available >= 0"><!-- 这里加ng-if是为了让w5c-form-validate的指令max在payBill.available有值后再compile, 否则会和$resource(Insurance.getInceInfo)形成时间竞争关系(肯定是max先被compile), 导致max的值无效(因为已经编译过了, 即使payBill.available后面有返回值, 并且max在页面上也显示该值) -->
+            <button-clear-input input="payBill.money"></button-clear-input>
+          </div>
+        </ion-item>
+        <ion-item class="no-padding-tb">
+          <div class="item-input">
+            <span class="input-label">备注信息:</span>
+            <input type="text" placeholder="药品, 用途..." ng-model="payBill.note" name="note" class="min-height">
+            <button-clear-input input="payBill.note"></button-clear-input>
+          </div>
+        </ion-item>
+        <ion-item class="row no-padding-tb">
+          <div class="col"><button class="button button-block button-positive" type="submit" ng-disabled="payBill.available === undefined">提交</button></div>
+          <div class="col"><button class="button button-block button-stable" type="button" ng-click="payBill.money = null; payBill.note = ''; error.checkError = ''">重置</button></div>
+        </ion-item>
+        <ion-item ng-if="error.checkError" class="no-padding-tb">
+          {{error.checkError}} <i class="icon ion-ios-close" ng-click="error.checkError = ''"></i>
+        </ion-item>
+      </ion-list>
+    </form>
+  </ion-content>
+</ion-view>

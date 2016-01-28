@@ -1,0 +1,153 @@
+<ion-view view-title="账户中心">
+  	<!-- <ion-nav-bar class="bar-royal"> -->
+  		<!-- <ion-nav-back-button>
+		</ion-nav-back-button> --><!-- 可以直接放在ion-nav-bar下, 如需要其他button, 再在下面加ion-nav-buttons side="left" -->
+	    <ion-nav-buttons side="left">
+	    	<!-- <button class="button button-icon icon ion-ios-plus-outline" publish-info="'参数'"></button> -->
+		    <!-- <ion-nav-back-button>
+		    </ion-nav-back-button> --><!-- ion-nav-back-button不能放在ion-nav-buttons中, 报错 -->
+		    <barcode-x func="bindBarcode"></barcode-x>
+	    </ion-nav-buttons>
+	    <!-- <ion-nav-title>
+	      	账户中心
+	    </ion-nav-title> -->
+	    <ion-nav-buttons side="right">
+		    <!-- <span class="two-buttons"> -->
+		        <a class="button button-icon icon ion-ios-gear" href="#/user/settings"></a>
+		        <!-- <button class="button button-icon icon ion-ios-plus-outline" publish-info="'参数'"></button> -->
+		    <!-- </span> -->
+	    </ion-nav-buttons>
+	<!-- </ion-nav-bar> --><!-- ion-nav-bar, ion-nav-buttons, ion-nav-back-button, ion-nav-title 都可以覆盖父模板的相同元素, 都可以直接置于 ion-view 元素下; 后 3 者也可以嵌套包含在 ion-nav-bar 中, ion-nav-back-button 不可以嵌套在 ion-nav-buttons 中!!! -->
+
+  	<ion-content>
+  	
+  		<ion-refresher pulling-text="释放刷新..." refreshing-text="正在刷新..." on-refresh="actions.doRefresh()"></ion-refresher>
+  		
+  		<ion-list class="card">
+			<a class="item item-avatar item-icon-right" href="#/user/mine">
+				<img ng-src="{{accountInfo.user.head.Url || 'img/defaultAvatar.png'}}" class="round-avatar">
+				<h2>{{accountInfo.user.personalInfo.name}}, {{accountInfo.user.personalInfo.gender | mapTitle}}</h2>
+				<!-- <p><span ng-if="accountInfo.user.mobile">手机: {{accountInfo.user.mobile}}, </span></p> -->
+				<p><span ng-if="accountInfo.ince.available >= 0">余额: {{accountInfo.ince.available | currency: '￥'}}</span></p>
+		        <i class="icon ion-ios-arrow-right"></i>
+			</a>
+			<!-- <ion-item class="tabs tabs-secondary tabs-icon-left">
+				<a class="tab-item" href="">
+					<i class="icon ion-thumbsup"></i>
+					Like
+				</a>
+				<a class="tab-item" href="">
+					<i class="icon ion-chatbox"></i>
+					Comment
+				</a>
+				<a class="tab-item" href="">
+					<i class="icon ion-share"></i>
+					Share
+				</a>
+			</ion-item> -->
+
+			<!-- <ion-item class="item-divider"></ion-item> -->
+
+	        <ion-item class="item-body">	
+				<div class="row">
+					<a class="col text-center" href="#/user/yljbalance">
+						<img ng-src="img/navicon/nav-ylj.png" class="nav-icon-avatar">
+					</a>
+					<a class="col text-center" href="#/user/yibalance">
+						<img ng-src="img/navicon/nav-ylbc.png" class="nav-icon-avatar">
+					</a>
+					<a class="col text-center" href="#/user/apply">
+						<img ng-src="img/navicon/nav-lp.png" class="nav-icon-avatar">
+					</a>
+				</div>
+				<div class="row">
+					<a class="col text-center button button-clear button-positive" href="#/user/yljbalance">养老金</a>
+					<a class="col text-center button button-clear button-positive" href="#/user/yibalance">医疗金查询</a>
+					<a class="col text-center button button-clear button-positive" href="#/user/apply">我要理赔</a>
+				</div>
+			</ion-item>
+
+	        <ion-item class="item">
+				<div class="row">
+					<div class="col">
+						<img src="img/zbtong-logo.png" class="item-h-image">
+					</div>
+					<div class="col">
+						<qrcode version="{{5}}" error-correction-level="{{'M'}}" size="{{100}}" data="{{accountInfo.barcode}}" ng-if="accountInfo.barcode" class="center-block"></qrcode><!-- 注意二维码版本号version, 容错率error-correction-level与data的长度密切相关, 低版本encode长data会显示空白 -->
+					</div>
+					<div class="col">
+						<img src="img/yiyangbaoLogo.png" class="item-h-image">						
+					</div>
+				</div>
+	        </ion-item>
+
+
+
+			<ion-item class="item-body">
+				<div class="row">
+					<a class="col text-center button button-clear button-positive" href="#/user/bxproduct">保险产品</a>
+					<a class="col text-center button button-clear button-positive" href="#/user/onlinecart">网上药店</a>
+					<a class="col text-center button button-clear button-positive" href="#/user/kenbei">健康商城</a>
+				</div>
+
+				<div class="row">
+					<a class="col text-center" href="#/user/bxproduct">
+						<img ng-src="img/navicon/app01.png" class="nav-icon-avatar">
+					</a>
+					<a class="col text-center" href="#/user/onlinecart">
+						<img ng-src="img/navicon/app02.png" class="nav-icon-avatar">
+					</a>
+					<a class="col text-center" href="#/user/kenbei">
+						<img ng-src="img/navicon/app07.png" class="nav-icon-avatar">
+					</a>
+				</div>
+
+				<div class="row">
+					<a class="col text-center button button-clear button-positive" href="#/user/health">健康管理</a>
+					<a class="col text-center button button-clear button-positive" href="#/user/myguang">挂号就诊</a>
+					<a class="col text-center button button-clear button-positive" href="#/user/yangsheng">名家养生</a>
+				</div>
+
+				<div class="row">
+					<a class="col text-center" href="#/user/health">
+						<img ng-src="img/navicon/app06.png" class="nav-icon-avatar">
+					</a>
+					<a class="col text-center" href="#/user/myguang">
+						<img ng-src="img/navicon/app05.png" class="nav-icon-avatar">
+					</a>
+					<a class="col text-center" href="#/user/yangsheng">
+						<img ng-src="img/navicon/app03.png" class="nav-icon-avatar">
+					</a>
+				</div>
+
+			</ion-item>
+			<ion-item class="text-right">
+				<spna style="font-size:12px; color:#888888;">技术支持：浙江大学 杭州颐养科技</span>
+			</ion-item>
+
+	       
+		</ion-list>
+
+		
+  	</ion-content>
+</ion-view>
+
+<style type="text/css">      
+  .fullheight {
+    height: 120px;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .item-h-number {
+  	font-size: 14px;
+  	color: #4548d2;
+  }
+  .item-h-image {
+  	width: 100%;
+  }
+  .qrcode {
+  	width: 100%;
+  }
+
+</style>

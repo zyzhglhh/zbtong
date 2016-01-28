@@ -1,0 +1,72 @@
+<!-- 本页面的style加载后会影响到后面所有的页面(css不会因为跳转到其他页面而失效)，和在index.html里面引用或加载效果一样 -->
+<style type="text/css">
+  /*html, body, .pane, div {
+    height: 100%;
+    overflow: hidden;
+  }*/
+  /*.fullbox {
+    width: 100%;
+    height: 100%;
+  }*/
+  /*要把所有的div都设置成100%高度, 本质是要把所有的父元素都设置成100%高度, 不然光设置某一个div, 会受父元素的影响, 不能占满屏幕高度*/
+  /*这里不能对所有的div都设置高度，会影响到后面所有的页面，需单独设置一个元素fullheight*/
+  /*ion-slide-box和ion-slide必须设置高度，否则会影响到其内部的元素，造成ion-header-bar和ion-content都不显示*/
+  /*div:not(.nofullheight) {*/
+  .fullheight {
+    height: 100%;
+  }
+  .blue {
+    background-color: #BFFDF5;
+  }
+  .yellow {
+    background-color: #FAFEBD;
+  }
+  .red {
+    background-color: #FFCCF7;
+  }
+  .downside {
+    width: 100%;
+    position: fixed;
+    bottom: 20%;
+  }
+  .clickin {
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+    max-width: 50%;
+  }
+</style>
+
+<ion-view>
+  <!-- <ion-content scroll="false"> -->
+    <ion-slide-box show-pager="true" does-continue="false" class="fullheight">
+      <ion-slide class="fullheight">
+        <ion-header-bar class="blue"><h1 class="title">Page 1</h1></ion-header-bar>
+        <ion-content scroll="false">
+          <div class="fullheight blue">
+            <h3>BLUE</h3>
+          </div>
+        </ion-content>
+      </ion-slide>
+      <ion-slide class="fullheight">
+        <ion-header-bar class="yellow"><h1 class="title">Page 2</h1></ion-header-bar>
+        <ion-content scroll="false">
+          <div class="fullheight yellow">
+            <h3>YELLOW</h3>
+          </div>
+        </ion-content>
+      </ion-slide>
+      <ion-slide class="fullheight">
+        <ion-header-bar class="red"><h1 class="title">Page 3</h1></ion-header-bar>
+        <ion-content scroll="false">
+          <div class="fullheight red">
+            <h3>PINK</h3>
+            <div class="nofullheight downside">
+              <a ng-href="#/settings" class="button button-clear clickin">点击进入APP</a>
+            </div>
+          </div>
+        </ion-content>
+      </ion-slide>
+    </ion-slide-box>
+  <!-- </ion-content> -->
+</ion-view>

@@ -1,0 +1,38 @@
+<ion-view view-title="养老金余额查询">
+    <ion-content>
+
+        <ion-refresher pulling-text="释放刷新..." refreshing-text="正在刷新..." on-refresh="actions.doRefresh()"></ion-refresher>
+        <ion-list>
+        	<div class="item item-divider">
+			    总投保金额
+			</div>
+        	<div class="item item-icon-left">
+        		<i class="icon ion-ios-people-outline"></i>
+        		公司总余额: {{ince.total.sumUnitAmount}}
+        		<span class="badge badge-assertive">{{ince.total.sumUnitInterest | number:2}}</span>
+        	</div>
+        	<div class="item item-icon-left">
+        		<i class="icon ion-ios-person-outline"></i>
+        		个人总余额: {{ince.total.sumProfileAmount}}
+        		<span class="badge badge-assertive">{{ince.total.sumInterest | number:2}}</span>
+        	</div>
+
+        	<div ng-repeat="inceItem in inceItems">
+        		<div class="item item-divider">
+				    {{inceItem.month | date: 'yyyy年MM月'}}投保 ({{inceItem.balanceDay}})天
+				</div>
+				<a class="item item-icon-right">
+					公司金额 {{inceItem.unitPrice}}
+					<span class="badge badge-assertive">{{inceItem.cycleUnitInterest | number:2}}</span>
+				</a>
+				<a class="item item-icon-right">
+					个人金额 {{inceItem.price}}
+					<span class="badge badge-assertive">{{inceItem.cycleInterest | number:2}}</span>
+			</a>
+        	</div>
+
+        </ion-list>
+
+
+    </ion-content>
+</ion-view>

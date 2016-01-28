@@ -1,0 +1,72 @@
+<ion-view view-title="专员信息">
+    <ion-content>
+
+        <ion-refresher pulling-text="释放刷新..." refreshing-text="正在刷新..." on-refresh="actions.doRefresh()"></ion-refresher>
+
+        <ion-list delegate-handle="userInfo">
+            <ion-item class="item-thumbnail-right item-icon-right text-middle" ng-click="actions.chgHead()">
+              <img ng-src="{{info.head.Url || 'img/defaultAvatar.png'}}" class="round-avatar">
+              <h2>头像</h2>
+              <i class="icon ion-ios-arrow-right"></i>
+            </ion-item>
+            <ion-item class="item-input item-icon-right" ng-click="actions.chgUsername()">
+                <span class="input-label">用户名:</span>
+                <span>{{info.username}}</span>
+                <i class="icon ion-ios-arrow-right" ng-if="info.username === info.personalInfo.idNo"></i>
+            </ion-item>
+            <ion-item class="item-input item-icon-right" ng-click="actions.chgMobile()">
+                <span class="input-label">手机:</span>
+                <!-- <span><a href="tel:{{info.mobile}}">{{info.mobile}}</a></span><!-- 可以手工指定电话超链接, 可以点击呼叫 -->
+                <span>{{info.mobile | maskMobile}}</span>
+                <i class="icon ion-ios-arrow-right"></i>
+            </ion-item>
+            <ion-item class="item-input item-icon-right" ng-click="actions.chgEmail()">
+                <span class="input-label">邮箱:</span>
+                <span>{{info.email}}</span>
+                <i class="icon ion-ios-arrow-right"></i>
+            </ion-item>
+            <ion-item class="item-divider">
+            </ion-item>
+            <ion-item class="item-input item-icon-right" ng-click="actions.chgPwd()">
+                <span class="input-label">修改登录密码:</span>
+                <span>******</span>
+                <i class="icon ion-ios-arrow-right"></i>
+            </ion-item>
+            <ion-item class="item-input item-icon-right" ng-click="actions.chgPwdQst()">
+                <span class="input-label">设置密保问题:</span>
+                <i class="icon ion-ios-arrow-right"></i>
+            </ion-item>
+            <ion-item class="item-divider">
+            </ion-item>
+            <ion-item class="item-input item-icon-right" ng-click="actions.chgName()">
+                <span class="input-label">专员姓名:</span>
+                <span>{{info.personalInfo.name}}</span>
+                <i class="icon ion-ios-arrow-right"></i>
+            </ion-item>
+            <ion-item class="item-input item-icon-right" ng-click="actions.chgLocation()">
+                <span class="input-label">联系地址:</span>
+                <span>{{info.personalInfo.location.city.name}}</span>
+                <i class="icon ion-ios-arrow-right"></i>
+            </ion-item>
+            <ion-item class="item-input item-icon-right" ng-click="actions.chgIdImg()">
+                <span class="input-label">相关照片:</span>
+                <i class="icon ion-ios-arrow-right"></i>
+            </ion-item>
+            <ion-item class="item-input item-icon-right" ng-click="actions.chgIntro()">
+                <span class="input-label">个人介绍:</span>
+                <i class="icon ion-ios-arrow-right"></i>
+            </ion-item>
+            <ion-item class="item-divider">
+            </ion-item>
+            <ion-item class="item-input">
+                <span class="input-label">证件类型:</span>
+                <span>{{info.personalInfo.idType}}</span>
+            </ion-item>
+            <ion-item class="item-input item-icon-right" ng-click="actions.chgIdNo()">
+                <span class="input-label">证件号码:</span>
+                <span>{{info.personalInfo.idNo}}</span>
+                <i class="icon ion-ios-arrow-right"></i>
+            </ion-item>
+        </ion-list>
+    </ion-content>
+</ion-view>

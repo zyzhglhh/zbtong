@@ -1,0 +1,137 @@
+<ion-modal-view>
+
+    <ion-header-bar>
+        <div class="buttons">
+            <button class="button button-icon ion-android-arrow-back" ng-click="actions.previous()" ng-if="currentIndex"></button>
+        </div>
+        <h1 class="title">重置密码</h1>
+        <div class="buttons">
+            <button class="button button-clear" ng-click="actions.preLoginP()"><span class="primary">取消</span></button>
+        </div>
+    </ion-header-bar>
+
+    <ion-content class="fullheight">
+        <ion-slide-box delegate-handle="pwdReset" show-pager="true" does-continue="false" class="fullheight" on-slide-changed="actions.getIndex()">
+            <ion-slide>
+                <ion-content scroll="true">
+                    <ion-list>
+                        <ion-item class="item-input item-floating-label" ng-if="loginModal">
+                            <span class="input-label">请输入用户名, 手机号, 证件号或邮件地址</span>
+                            <input type="text" placeholder="请输入用户名, 手机号, 证件号或邮件地址" ng-model="data.value" required>
+                            <button-clear-input input="data.value"></button-clear-input>
+                        </ion-item>
+                        <button class="button button-block no-padding-tb no-margin-vertical button-energized" ng-click="actions.verifyUser()" type="button">回答密保问题</button>
+                        <button class="button button-block button-positive" ng-click="actions.verifyUserSMS()" type="button">短信验证</button>
+                        {{error.pwdResetError}} <i class="icon ion-ios-close" ng-click="error.pwdResetError = ''" ng-if="error.pwdResetError"></i>
+                        <ion-item class="item-input no-item-border padding-top">
+                            <span class="input-label">拨打客服电话</span>
+                            <a ng-href="tel:{{config.serv400.number}}">{{config.serv400.caption}}</a>
+                        </ion-item>
+                    </ion-list>
+                </ion-content>
+            </ion-slide>
+            <ion-slide>
+                <ion-content scroll="true">
+                    <ion-list>
+                        <ion-item class="item-input item-select">
+                            <span class="input-label">问题一:</span>
+                            <select ng-options="q for q in [pwdQst[0].q]" ng-model="pwdQst[0].q"></select>
+                        </ion-item>
+                        <ion-item class="item-input">
+                            <input type="text" placeholder="答案一:" ng-model="pwdQst[0].a" ng-disabled="!pwdQst[0].q">
+                            <button-clear-input input="pwdQst[0].a"></button-clear-input>
+                        </ion-item>
+                        <ion-item class="item-input item-select">
+                            <span class="input-label">问题二:</span>
+                            <select ng-options="q for q in [pwdQst[1].q]" ng-model="pwdQst[1].q"></select>
+                        </ion-item>
+                        <ion-item class="item-input">
+                            <input type="text" placeholder="答案二:" ng-model="pwdQst[1].a" ng-disabled="!pwdQst[1].q">
+                            <button-clear-input input="pwdQst[1].a"></button-clear-input>
+                        </ion-item>
+                        <ion-item class="item-input item-select">
+                            <span class="input-label">问题三:</span>
+                            <select ng-options="q for q in [pwdQst[2].q]" ng-model="pwdQst[2].q"></select>
+                        </ion-item>
+                        <ion-item class="item-input">
+                            <input type="text" placeholder="答案三:" ng-model="pwdQst[2].a" ng-disabled="!pwdQst[2].q">
+                            <button-clear-input input="pwdQst[2].a"></button-clear-input>
+                        </ion-item>
+                        <button class="button button-block no-padding-tb no-margin-vertical button-calm" ng-click="actions.pwdInput()" type="button">下一步</button>
+                        {{error.pwdResetError}} <i class="icon ion-ios-close" ng-click="error.pwdResetError = ''" ng-if="error.pwdResetError"></i>
+                    </ion-list>
+                </ion-content>
+            </ion-slide>
+            <ion-slide>
+                <ion-content scroll="true">
+                    <ion-list>
+                        <ion-item class="item-input no-padding-tb">
+                            <span class="input-label">新密码:</span>
+                            <input type="password" placeholder="1-16位" ng-model="password.newPassword" required="" name="newPassword" ng-minlength="1" ng-maxlength="16" class="min-height">
+                            <button-clear-input input="password.newPassword"></button-clear-input>
+                        </ion-item>
+                        <ion-item class="item-input no-padding-tb">
+                            <span class="input-label">重<span class="take-position">占</span>复:</span>
+                            <input type="password" placeholder="1-16位" ng-model="password.repeatPwd" required="" name="repeatPwd" ng-minlength="1" ng-maxlength="16" class="min-height">
+                            <button-clear-input input="password.repeatPwd"></button-clear-input>
+                        </ion-item>
+                        <button class="button button-block no-padding-tb no-margin-vertical button-royal" ng-click="actions.pwdReset()" type="button">提交密码</button>
+                        {{error.pwdResetError}} <i class="icon ion-ios-close" ng-click="error.pwdResetError = ''" ng-if="error.pwdResetError"></i>
+                    </ion-list>
+                </ion-content>
+            </ion-slide>
+        </ion-slide-box>
+    </ion-content>
+
+</ion-modal-view>
+
+<style type="text/css">
+  /*html, body, .pane, div {
+    height: 100%;
+    overflow: hidden;
+  }*/
+  /*.fullbox {
+    width: 100%;
+    height: 100%;
+  }*/
+  /*要把所有的div都设置成100%高度, 本质是要把所有的父元素都设置成100%高度, 不然光设置某一个div, 会受父元素的影响, 不能占满屏幕高度*/
+  .fullheight div.scroll {
+    height: 100%;
+  }
+  /*这里不能对所有的div都设置高度，会影响到后面所有的页面，需单独设置一个元素fullheight*/
+  /*ion-slide-box必须设置高度，否则会影响到其内部的元素，造成ion-header-bar和ion-content都不显示*/
+  /*div:not(.nofullheight) {*/
+  .fullheight {
+    height: 100%;
+    /*height: auto;*/
+    /*height: 720px;*/  /*设置100%在窗口变小时高度会变为0*/
+  }
+  /*.blue {
+    background-color: #BFFDF5;
+  }
+  .yellow {
+    background-color: #FAFEBD;
+  }
+  .red {
+    background-color: #FFCCF7;
+  }*/
+  /*.downside {
+    width: 100%;
+    position: fixed;
+    bottom: 20%;
+  }
+  .clickin {
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+    max-width: 50%;
+  }*/
+
+  .float-right button.button {
+    float: right;
+    /*margin-left: 6px;*/
+  }
+  /*.margin-bottom {
+    margin-bottom: 36px;
+  }*/
+</style>

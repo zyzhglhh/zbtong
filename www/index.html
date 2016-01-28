@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+
+    <meta name="format-detection" content="telephone=no"><!-- iOS下禁止自动对电话号码增加超链接样式, 可以手工增加确实需要的号码<a href="tel:1-408-555-5555">1-408-555-5555</a> -->
+
+    <!-- Good default declaration:
+    * gap: is required only on iOS (when using UIWebView) and is needed for JS->native communication
+    * https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
+    * Disables use of eval() and inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
+        * Enable inline JS: add 'unsafe-inline' to default-src
+        * Enable eval(): add 'unsafe-eval' to default-src -->
+    <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com; style-src 'self' 'unsafe-inline'; media-src *"> -->
+    <!-- Allow requests to foo.com -->
+    <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self' foo.com"> -->
+    <!-- Enable all requests, inline styles, and eval() -->
+    <meta http-equiv="Content-Security-Policy" content="default-src *; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval' http://*.map.baidu.com http://*.map.bdimg.com"><!-- 需要增加外部访问地址策略, 注意要加上 http:// -->
+    <!-- Allow XHRs via https only -->
+    <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self' https:"> -->
+    <!-- Allow iframe to https://cordova.apache.org/ -->
+    <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self'; frame-src 'self' https://cordova.apache.org"> -->
+
+    <!-- 下面的 base href 在App编译(在线: PhoneGap Build; 本地: `$ cordova build # 最好在 $ cordova platform add ... 之前就去掉`)成 hybrid App 时必须注释掉, 否则程序就找不到入口 -->
+    <!-- 如果在根目录下, 则设置为href="/"(这里服务器设置了静态虚拟目录'/app', 所以不要设置为'/app/www/'); 是angularjs 1.3以后的新特性, https://docs.angularjs.org/error/$location/nobase; 设置了base href后, 所有的绝对路径(如href='/aboutUs')还是都以服务器根目录为前缀, 所以, app的.html模板中所有的链接都要采用相对链接的方式(如href='aboutUs'), $stateProvider.state中的url还是要加左边的反斜杠 -->
+
+    <title>浙保通</title>
+
+    <!-- ionic css -->
+    <link href="lib/ionic/release/css/ionic.min.css" rel="stylesheet">
+
+    <!-- your app's css -->
+    <!-- build:css -->
+        <!-- <link href="css/app.min.css" rel="stylesheet"> -->
+        <link href="css/app.css" rel="stylesheet">
+    <!-- endbuild -->
+
+    <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
+    <link href="css/ionic.app.css" rel="stylesheet">
+    -->
+
+    <!-- 所有库之前的独立初始化模块: 不需要了, 在app.config中得到用户角色和访问权限 -->
+    <!-- <script src="js/helpers/ACL.js"></script> -->
+
+
+    <!-- ionic/angularjs scripts -->
+    <script src="lib/ionic/release/js/ionic.bundle.min.js"></script>
+    <!-- ionic.io service, dev? -->
+    <!-- <script src="lib/ionic-service-core/ionic-core.js"></script>
+    <script src="lib/ionic-service-push/ionic-push.js"></script>
+    <script src="lib/ionic-service-deploy/ionic-deploy.js"></script>
+    <script src="lib/ionic-service-analytics/ionic-analytics.js"></script> -->
+
+    <!-- 第三方js -->
+    <script src="lib/angular-resource/angular-resource.min.js"></script>
+    <script src="lib/angular-w5c-validator/w5cValidator.min.js"></script>
+    <script src="lib/angular-jwt/dist/angular-jwt.min.js"></script>
+    <!-- build:qrcode -->
+        <!-- <script src="lib/qrcode-generator/js/qrcode.min.js"></script> -->
+        <script src="lib/qrcode-generator/js/qrcode.js"></script>
+    <!-- endbuild -->
+    <!-- build:qrcode_utf8 -->
+        <!-- <script src="lib/qrcode-generator/js/qrcode_UTF8.min.js"></script> -->
+        <script src="lib/qrcode-generator/js/qrcode_UTF8.js"></script>
+    <!-- endbuild -->
+    <!-- build:ng_qrcode -->
+        <!-- <script src="lib/angular-qrcode/angular-qrcode.min.js"></script> -->
+        <script src="lib/angular-qrcode/angular-qrcode.js"></script>
+    <!-- endbuild -->
+
+
+    <!-- build:socket_io -->
+        <!-- <script src="/socket.io/socket.io.js"></script> --><!-- 客户端的js文件由服务器自动导出, 地址为'/socket.io/socket.io.js'(即http://domain/socket.io/socket.io.js), 不需要在客户端手动安装. A standalone build of socket.io-client is exposed automatically by the socket.io server as /socket.io/socket.io.js; !!!!!! '/socket.io/socket.io.js'是web访问时服务器提供的.js文件地址, 但在App编译时, 需要指定一个本地相对路径, 否则由服务器导出的话在App的文件夹里是没有这个.js文件的; !!!!!! -->
+        <script src="lib/socket.io.js"></script><!-- !!!!!! '/socket.io/socket.io.js'是web访问时服务器提供的.js文件地址, 但在App编译时, 需要指定一个本地相对路径, 否则由服务器导出的话在App的文件夹里是没有这个.js文件的; !!!!!! -->
+    <!-- endbuild -->
+    <script src="lib/angular-socket-io/socket.min.js"></script>
+    <!-- <script src="/lib/ng-file-upload/angular-file-upload.min.js"></script> -->
+
+    <!-- cordova script (this will be a 404 during development) -->
+    <script src="lib/ngCordova/dist/ng-cordova.min.js"></script>
+    <script src="cordova.js"></script>
+
+    <!-- your app's js -->
+    <!-- build:js -->
+        <!-- <script src="js/app.min.js"></script> -->
+        <script src="js/app.js"></script>
+        <script src="js/services.js"></script>
+        <script src="js/directives.js"></script>
+        <script src="js/filters.js"></script>
+        <script src="js/controllers.js"></script>
+        <script src="js/controllers.user.js"></script>
+        <script src="js/controllers.backend.js"></script>
+        <!--END -->
+
+    <!-- endbuild -->
+  </head>
+  <body ng-app="yiyangbao" ng-controller="main">
+    <!-- 
+      The views will be rendered in the <ion-nav-view> directive below
+      Templates are in the /templates folder (but you could also
+      have templates inline in this html file if you'd like).
+    -->
+    <ion-nav-view></ion-nav-view>
+  </body>
+</html>

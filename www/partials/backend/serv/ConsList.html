@@ -1,0 +1,53 @@
+<ion-view view-title="消费记录">
+    <ion-nav-buttons side="left">
+        <a class="button button-icon icon ion-ios-barcode-outline" on-touch="actions.scan()"></a>
+    </ion-nav-buttons>
+    <ion-nav-buttons side="right">
+        <!-- <span class="two-buttons"> -->
+            <!-- <a class="button button-icon icon ion-ios-search" href="#/serv/search"></a> -->
+            <button class="button button-icon icon ion-funnel" ng-click="actions.showFilter($event)"></button>
+        <!-- </span> -->
+    </ion-nav-buttons>
+
+    <ion-content>
+
+        <!-- <button class="button button-block button-clear button-offline" ng-if="refreshable" ng-click="refreshAgain()">
+            {{refreshableTitle}}
+        </button> -->
+
+        <ion-refresher pulling-text="释放刷新..." refreshing-text="正在刷新..." on-refresh="actions.doRefresh()"></ion-refresher>
+
+        <ion-list>
+            <!-- <ion-item class="item-avatar" 
+                collection-repeat="item in items" 
+                item-height="80" 
+                item-width="'100%'" 
+                style="width:100%;height:80px" 
+                ng-href="#/simple/activity/{{item[0] + '&no=' + item[7] + '&po=' + username}}" > -->
+            <!-- <ion-item ng-repeat="item in items" class="card item-thumbnail-left item-text-wrap item-icon-right" ui-sref="serv.ConsDetail({consId: item._id, cons: item})" ng-if="(!item.status.isSubmitted && !item.status.isAudited && !item.status.isRevoked) || (item.status.isSubmitted && !item.status.isAudited && !item.status.isRevoked && filters.checkBoxItems[0].checked === true) || (item.status.isAudited && filters.checkBoxItems[1].checked === true) || (item.status.isRevoked && filters.checkBoxItems[2].checked === true)"> -->
+            <div collection-repeat="item in items" item-height="110"><!-- collection-repeat元素中不能用ng-if, 用.filter方法实现过滤功能 -->
+                <ion-item class="item-thumbnail-left item-text-wrap item-icon-right cons-collection-repeat-height" ui-sref="serv.ConsDetail({consId: item._id, cons: item})">
+
+                    <img ng-src="{{item.receiptImgUrl || 'img/nopic.gif'}}">
+
+                    <!-- <i class="icon ion-android-radio-button-off" ng-class="{'energized': item.receiptImg.length && !item.status.isSubmitted && !item.status.isRevoked, 'calm': item.status.isSubmitted && !item.status.isAudited && !item.status.isRevoked, 'dark': item.status.isAudited, 'assertive': item.status.isRevoked}" ng-show="item.receiptImg.length || item.status.isRevoked"></i> -->
+
+                    <h2 ng-class="{'light': !item.receiptImg.length && !item.status.isRevoked, 'energized': item.receiptImg.length && !item.status.isSubmitted && !item.status.isRevoked, 'calm': item.status.isSubmitted && !item.status.isAudited && !item.status.isRevoked, 'dark': item.status.isAudited, 'assertive': item.status.isRevoked}">{{(item.status.isRevoked && '已核销') || (item.status.isDone && '已完成') || (!item.receiptImg.length && !item.status.isRevoked && '无图片') || (item.receiptImg.length && !item.status.isSubmitted && !item.status.isRevoked && '未提交') || (item.status.isSubmitted && !item.status.isAudited && !item.status.isRevoked && '已提交') || (item.status.isAudited && '已审核')}}</h2>
+
+                    <p><strong>{{item.userId.personalInfo.name}}</strong> {{item.userId.personalInfo.gender | mapTitle}}于<em class="no-text-decoration">{{item.time | date: 'yyyy-MM-dd hh:mm:ss'}}</em>, <!-- <span ng-if="item.mediId.personalInfo.name">在 <b>{{item.mediId.personalInfo.name}}</b>, </span> -->消费 {{item.money | currency: '￥'}} 元. <!-- <span ng-if="item.note">购买/用于 {{item.note}} 药品/目的.</span> --></p>
+
+                    <!-- <i class="icon ion-ios-arrow-right"></i> -->
+                </ion-item>
+            </div>
+        </ion-list>
+
+        <!-- <ion-infinite-scroll ng-if="moreDataCanBeLoaded()" icon="ion-loading-c" on-infinite="loadMoreData()" distance="1%"></ion-infinite-scroll> -->
+
+    </ion-content>
+
+    <!-- <ion-footer-bar class="bar-stable no-padding" ng-if="loadable">
+        <button class="button button-block button-clear button-offline" ng-click="loadMore()">
+            {{loadableTitle}}
+        </button>
+    </ion-footer-bar> -->
+</ion-view>

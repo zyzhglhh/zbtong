@@ -1,0 +1,21 @@
+<ion-view view-title="补充医疗余额查询">
+    <ion-content>
+
+        <ion-refresher pulling-text="释放刷新..." refreshing-text="正在刷新..." on-refresh="actions.doRefresh()"></ion-refresher>
+        <ion-list>
+        	<div class="item item-icon-left">
+        		<i class="icon ion-person-stalker"></i>
+        		总余额: {{ince.total.sumProfileAmount}}
+        		<span class="badge badge-assertive">{{ince.total.sumInterest | number:2}}</span>
+        	</div>
+        	<div class="item item-divider">
+			    投保明细金额
+			</div>
+			<a class="item item-icon-right" ng-repeat="inceItem in inceItems">
+				{{inceItem.month | date:'yyyy年MM月'}} 金额 {{inceItem.price}}
+				<span class="badge badge-assertive">{{inceItem.cycleInterest | number:2}}</span>
+			</a>
+
+        </ion-list>
+    </ion-content>
+</ion-view>

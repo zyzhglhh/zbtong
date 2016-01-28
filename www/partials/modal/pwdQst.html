@@ -1,0 +1,45 @@
+<ion-modal-view>
+
+  <ion-header-bar>
+    <div class="buttons">
+      <button class="button button-clear" ng-click="actions.closePwdQst()"><span class="primary">取消</span></button>
+    </div>
+    <h1 class="title">{{config.title}}</h1>
+    <div class="buttons">
+      <button class="button button-clear" ng-click="actions.pwdQst()"><span class="primary">提交</span></button>
+    </div>
+  </ion-header-bar>
+  
+  <ion-content>
+    <ion-list>
+      <ion-item class="item-input item-select">
+        <span class="input-label">问题一:</span>
+        <select ng-options="q for q in config.q1" ng-model="pwdQst[0].q"></select>
+      </ion-item>
+      <ion-item class="item-input">
+        <input type="text" placeholder="答案一:" ng-model="pwdQst[0].a" ng-disabled="!pwdQst[0].q">
+        <button-clear-input input="pwdQst[0].a"></button-clear-input>
+      </ion-item>
+      <ion-item class="item-input item-select">
+        <span class="input-label">问题二:</span>
+        <select ng-options="q for q in config.q2" ng-model="pwdQst[1].q"></select>
+      </ion-item>
+      <ion-item class="item-input">
+        <input type="text" placeholder="答案二:" ng-model="pwdQst[1].a" ng-disabled="!pwdQst[1].q">
+        <button-clear-input input="pwdQst[1].a"></button-clear-input>
+      </ion-item>
+      <ion-item class="item-input item-select">
+        <span class="input-label">问题三:</span>
+        <select ng-options="q for q in config.q3" ng-model="pwdQst[2].q"></select>
+      </ion-item>
+      <ion-item class="item-input">
+        <input type="text" placeholder="答案三:" ng-model="pwdQst[2].a" ng-disabled="!pwdQst[2].q">
+        <button-clear-input input="pwdQst[2].a"></button-clear-input>
+      </ion-item>
+      <ion-item ng-if="error.pwdQstError" class="no-padding-tb"><!-- ng-if会创建子$scope, 因此需要采用数组方式传递变量(内存地址引用), 否则子$scope中对loginError的改变不会影响父$scope的loginError, 元素不会消失 -->
+        {{error.pwdQstError}} <i class="icon ion-ios-close" ng-click="error.pwdQstError = ''"></i>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+
+</ion-modal-view>

@@ -1,0 +1,63 @@
+<ion-modal-view>
+
+  <ion-header-bar>
+    <div class="buttons">
+      <button class="button button-clear" ng-click="actions.closeRegister()">取消</button>
+    </div>
+    <h1 class="title">请注册</h1>
+  </ion-header-bar>
+
+  <ion-content>
+    <!-- <form class="form-horizontal w5c-form" w5c-form-validate="" w5c-submit="actions.register()" role="form" novalidate name="form_user_register"> --><!-- 使用w5c-submit会导致移动设备虚拟键盘的go按钮失效, 需要使用ng-submit -->
+    <form class="form-horizontal w5c-form" w5c-form-validate="" ng-submit="actions.register()" role="form" novalidate name="form_user_register">
+      <ion-list>
+        <ion-item class="item-input no-padding-tb">
+          <!-- <div class="item-input"> -->
+            <span class="input-label">用户名:</span>
+            <!-- <input type="text" autofocus="" placeholder="请输入用户名" w5c-unique-check="{url:'/check?username={{register.username}}'}" ng-model="register.username" required="" name="username" ng-pattern="/^[A-Za-z]{1}[0-9A-Za-z_]{1,19}$/"> -->
+            <input type="text" autofocus="" placeholder="请输入用户名" ng-model="register.username" required="" name="username" ng-pattern="/^[A-Za-z]{1}[0-9A-Za-z_]{1,19}$/" class="min-height">
+            <button-clear-input input="register.username"></button-clear-input>
+          <!-- </div> -->
+        </ion-item>
+        <ion-item class="item-input no-padding-tb">
+          <!-- <div class="item-input"> -->
+            <span class="input-label">密<span class="take-position">占</span>码:</span>
+            <input type="password" placeholder="8-16位" ng-model="register.password" required="" name="password" ng-minlength="8" ng-maxlength="16" class="min-height">
+            <button-clear-input input="register.password"></button-clear-input>
+          <!-- </div> -->
+        </ion-item>
+        <ion-item class="item-input no-padding-tb">
+          <!-- <div class="item-input"> -->
+            <span class="input-label">重复密码:</span>
+            <input type="password" placeholder="8-16位" ng-model="register.repeatPassword" w5c-repeat="password" name="repeatPassword" class="min-height">
+            <button-clear-input input="register.repeatPassword"></button-clear-input>
+          <!-- </div> -->
+        </ion-item>
+        <ion-item class="item-input no-padding-tb">
+          <!-- <div class="item-input"> -->
+            <span class="input-label">姓<span class="take-position">占</span>名:</span>
+            <input type="text" placeholder="真实姓名" ng-model="register.name" required="" name="chinese_name" ng-pattern="/^[\u4e00-\u9fa5]{2,10}$/" class="min-height">
+            <button-clear-input input="register.name"></button-clear-input>
+          <!-- </div> -->
+        </ion-item>
+        <ion-toggle ng-model="register.gender" toggle-class="toggle-positive" class="text-right">性别: (男|女)</ion-toggle>
+        <ion-item class="item-input no-padding-tb">
+          <!-- <div class="item-input"> -->
+            <span class="input-label">手机号码:</span>
+            <input type="text" placeholder="13888888888" ng-model="register.mobile" required="" name="mobile" ng-minlength="9" ng-maxlength="16" ng-pattern="/^[0-9+]{1}[0-9-]{8,15}$/" class="min-height">
+            <button-clear-input input="register.mobile"></button-clear-input>
+          <!-- </div> -->
+        </ion-item>
+        <ion-item class="row no-padding-tb">
+          <div class="col"><button class="button button-block button-positive" type="submit">注册</button></div>
+          <div class="col"><button class="button button-block button-stable" type="reset">重置</button></div>
+          <div class="col"><button class="button button-block button-energized" ng-click="actions.preLoginR()" type="button">返回</button></div>
+        </ion-item>
+        <ion-item ng-if="error.registerError" class="no-padding-tb"><!-- ng-if会创建子$scope, 因此需要采用数组方式传递变量(内存地址引用), 否则子$scope中对registerError的改变不会影响父$scope的registerError, 元素不会消失 -->
+          {{error.registerError}} <i class="icon ion-ios-close" ng-click="error.registerError = ''"></i>
+        </ion-item>
+      </ion-list>
+    </form>
+  </ion-content>
+
+</ion-modal-view>

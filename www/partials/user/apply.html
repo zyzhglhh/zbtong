@@ -1,0 +1,116 @@
+<ion-view view-title="我要理赔">
+  
+  <!-- <ion-nav-buttons side="right">
+    <a class="button button-icon icon ion-ios-barcode-outline" on-touch="actions.scan()"></a>
+  </ion-nav-buttons> -->
+
+  <ion-content>
+    <ion-refresher pulling-text="释放刷新..." refreshing-text="正在刷新..." on-refresh="actions.doRefresh()"></ion-refresher>
+    
+    <form class="form-horizontal w5c-form" w5c-form-validate="" w5c-submit="actions.apply()" role="form" novalidate name="form_medi_check">
+      <ion-list>
+        <ion-item class="no-padding">
+          <ion-slide-box delegate-handle="inceType" show-pager="false" does-continue="true" class="item-height" auto-play="false">
+            <ion-slide>
+              <!-- <ion-list> -->
+                <ion-item class="item-icon-right">
+                  帐户余额: {{accountInfo.ince.available | currency: '￥'}}
+                  <!-- <i class="icon ion-android-arrow-dropright"></i> -->
+                </ion-item>
+              <!-- </ion-list> -->
+            </ion-slide>
+            <ion-slide>
+              <!-- <ion-list> -->
+                <ion-item class="item-icon-right">
+                  <div class="row no-padding">
+                    <!-- <div class="col-50 no-padding"> -->
+                      余额: 门诊{{accountInfo.ince.available | currency: '￥'}}, 
+                    <!-- </div> -->
+                    <!-- <div class="col-50 no-padding"> -->
+                      住院{{accountInfo.ince.available | currency: '￥'}}
+                    <!-- </div> -->
+                  </div>
+                  <!-- <i class="icon ion-android-arrow-dropright" ng-click=""></i> -->
+                </ion-item>
+              <!-- </ion-list> -->
+            </ion-slide>
+          </ion-slide-box>
+        </ion-item>
+        <ion-item class="item-input item-select">
+          <span class="input-label">保险类型:</span>
+          <select ng-options="c | mapInceType for c in config.inceTypes" ng-model="cons.inceType" ng-change="actions.chgInceType(cons.inceType)"></select>
+        </ion-item>
+        <ion-item class="item-input item-select">
+          <span class="input-label">单位类型:</span>
+          <select ng-options="c | mapUnitType for c in config.unitTypes" ng-model="cons.unitType"></select>
+        </ion-item>
+        <ion-item class="item-input item-select">
+          <span class="input-label">就诊类型:</span>
+          <select ng-options="c | mapMediType for c in config.mediTypes" ng-model="cons.mediType"></select>
+        </ion-item>
+        <ion-item class="item-input item-select">
+          <span class="input-label">消费人:</span>
+          <select ng-options="c for c in config.relations" ng-model="cons.consumer.relation"></select>
+        </ion-item>
+        <ion-item class="item-input no-padding-tb" ng-if="cons.consumer.relation && cons.consumer.relation !== '本人'">
+            <span class="input-label">姓名:</span>
+            <input type="text" placeholder="消费人姓名" ng-model="cons.consumer.name" name="name" class="min-height">
+            <button-clear-input input="cons.consumer.name"></button-clear-input>
+        </ion-item>
+        <ion-item class="item-input no-padding-tb" ng-if="cons.consumer.relation && cons.consumer.relation !== '本人'">
+            <span class="input-label">身份证号:</span>
+            <input type="text" placeholder="消费人姓名" ng-model="cons.consumer.idNo" name="idNo" class="min-height">
+            <button-clear-input input="cons.consumer.idNo"></button-clear-input>
+        </ion-item>
+        <ion-item class="item-input no-padding-tb" ng-if="cons.consumer.relation && cons.consumer.relation !== '本人'">
+            <span class="input-label">手机:</span>
+            <input type="text" placeholder="消费人姓名" ng-model="cons.consumer.mobile" name="mobile" class="min-height">
+            <button-clear-input input="cons.consumer.mobile"></button-clear-input>
+        </ion-item>
+        <ion-item class="item-divider no-padding-tb">
+          <span class="input-label">就诊日期:</span>
+        </ion-item>
+        <ion-item class="item-input">
+          <span class="input-label">起始日期:</span>
+          <input type="date" ng-model="cons.visitDate.start" name="start">
+        </ion-item>
+        <ion-item class="item-input">
+          <span class="input-label">结束日期:</span>
+          <input type="date" ng-model="cons.visitDate.end" name="end">
+        </ion-item>
+        <ion-item class="item-input no-padding-tb">
+            <span class="input-label">医疗费:</span>
+            <input type="number" placeholder="医疗费" ng-model="cons.money" name="money" class="min-height">
+            <button-clear-input input="cons.money"></button-clear-input>
+        </ion-item>
+        <ion-item class="item-input no-padding-tb">
+            <span class="input-label">单据数:</span>
+            <input type="number" placeholder="单据数" ng-model="cons.receiptTotalAmount" name="receiptTotalAmount" class="min-height">
+            <button-clear-input input="cons.receiptTotalAmount"></button-clear-input>
+        </ion-item>
+        <ion-item class="item-input no-padding-tb">
+            <span class="input-label">备注:</span>
+            <input type="text" placeholder="备注" ng-model="cons.note" name="note" class="min-height">
+            <button-clear-input input="cons.note"></button-clear-input>
+        </ion-item>
+        <ion-item class="row no-padding-tb" ng-if="accountInfo.user.personalInfo.idImg.length < config.images.length">
+          <button class="button button-block button-calm" type="button" ng-click="actions.chgIdImg()">证件照片</button>
+        </ion-item>
+        <ion-item class="row no-padding-tb">
+          <div class="col"><button class="button button-block button-positive" type="submit" ng-disabled="!(cons.consumer.relation && cons.visitDate.start && cons.visitDate.end && cons.money && cons.receiptTotalAmount && (cons.money <= accountInfo.ince.available) && (cons.visitDate.start <= cons.visitDate.end) && accountInfo.user.personalInfo.idImg.length)">提交</button></div>
+          <div class="col"><button class="button button-block button-stable" type="reset" ng-click="error.applyError = ''">重置</button></div>
+        </ion-item>
+        <ion-item ng-if="error.applyError" class="no-padding-tb">
+          {{error.applyError}} <i class="icon ion-ios-close" ng-click="error.applyError = ''"></i>
+        </ion-item>
+      </ion-list>
+    </form>
+  </ion-content>
+</ion-view>
+
+<style type="text/css">
+  .item-height {
+    min-height: 100%;
+    /*min-width: 100%;*/
+  }
+</style>

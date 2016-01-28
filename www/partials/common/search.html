@@ -1,0 +1,23 @@
+<ion-view view-title="搜索">  
+  <ion-content>
+    <div class="list list-inset">
+      <div class="item item-input-inset">
+        <i class="icon ion-search placeholder-icon"></i>
+        <input type="search" placeholder="查找..." ng-model="item.searchContent">
+        <button-clear-input input="item.searchContent"></button-clear-input>
+      </div>
+    </div>
+    <!-- <label class="list list-inset">
+      <div class="item item-input-inset">
+        <i class="icon ion-search placeholder-icon"></i>
+        <input type="search" placeholder="查找..." ng-model="item.searchContenta">
+        <button onclick="alert('aaaaa')" class='button button-icon ion-android-close input-button padding-right'></button>
+      </div>
+     </label> --><!--ionicframework里面<label>标签中的button点击无效, 要改成<div>标签-->
+    <div class="padding">
+      <button class="button button-block button-positive">
+        查找
+      </button>
+    </div>
+  </ion-content>
+</ion-view>

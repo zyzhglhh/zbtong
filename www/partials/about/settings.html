@@ -1,0 +1,71 @@
+<ion-view>
+
+  <ion-nav-bar class="bar-stable nav-title-slide-ios7">
+    <ion-nav-buttons side="left">
+      <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+    </ion-nav-buttons>
+    <ion-nav-title>
+      系统设置
+    </ion-nav-title>
+  </ion-nav-bar>
+
+  <ion-content>
+    <ion-list>
+      <!-- <a class="item item-avatar" href="#/userInfo">
+        <img src="img/defaultAvatar.png">
+        <h2>{{userName}}</h2>
+        <p>{{signature}}</p>
+      </a> -->
+      <!-- <a class="item" href="#/aboutUs">
+        关于我们
+        <span class="item-note">
+          <i class="icon ion-ios-arrow-right"></i>
+        </span>
+      </a>
+      <a class="item" href="#/products">
+        颐养产品
+        <span class="item-note">
+          <i class="icon ion-ios-arrow-right"></i>
+        </span>
+      </a>
+      <a class="item" href="#/agreement">
+        用户协议
+        <span class="item-note">
+          <i class="icon ion-ios-arrow-right"></i>
+        </span>
+      </a> -->
+      <!-- <a class="item" href="#/feedback">
+        意见反馈
+        <span class="item-note">
+          <i class="icon ion-ios-arrow-right"></i>
+        </span>
+      </a> -->
+      <!-- <a class="item" href="#/intro">
+        欢迎页面
+        <span class="item-note">
+          <i class="icon ion-ios-arrow-right"></i>
+        </span>
+      </a> -->
+      <div class="item" ng-click="actions.clearCache()">
+        清理缓存
+        <span class="item-note">
+          <i class="icon ion-ios-arrow-right"></i>
+        </span>
+      </div>
+      <div class="item item-input-inset">
+        <label class="item-input-wrapper">
+          <input type="text" placeholder="Server" ng-model="data.server">
+        </label>
+        <button class="button button-small" ng-click="actions.chgServer()">
+          修改
+        </button>
+      </div>
+    </ion-list>
+    <!-- <div class="padding">
+      <button class="button button-block button-assertive" ng-click='actions.logout()'>
+        退出登录
+      </button>
+    </div> -->
+  </ion-content>
+
+</ion-view>

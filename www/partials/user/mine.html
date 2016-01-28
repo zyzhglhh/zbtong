@@ -1,0 +1,85 @@
+<ion-view view-title="个人信息">
+    <ion-content>
+
+        <ion-refresher pulling-text="释放刷新..." refreshing-text="正在刷新..." on-refresh="actions.doRefresh()"></ion-refresher>
+
+    	<ion-list delegate-handle="userInfo">
+            <ion-item class="item-thumbnail-right item-icon-right text-middle" ng-click="actions.chgHead()">
+		      <img ng-src="{{accountInfo.user.head.Url || 'img/defaultAvatar.png'}}" class="round-avatar">
+		      <h2>头像</h2>
+		      <i class="icon ion-ios-arrow-right"></i>
+		    </ion-item>
+            <ion-item class="item-input item-icon-right" ng-click="actions.chgUsername()">
+                <span class="input-label">用户名:</span>
+                <span>{{accountInfo.user.username}}</span>
+                <i class="icon ion-ios-arrow-right" ng-if="accountInfo.user.username === accountInfo.user.personalInfo.idNo"></i>
+            </ion-item>
+            <ion-item class="item-input item-icon-right" ng-click="actions.chgMobile()">
+                <span class="input-label">手机:</span>
+                <span>{{accountInfo.user.mobile | maskMobile}}</span>
+                <i class="icon ion-ios-arrow-right"></i>
+            </ion-item>
+            <ion-item class="item-input item-icon-right" ng-click="actions.chgEmail()">
+                <span class="input-label">邮箱:</span>
+                <span>{{accountInfo.user.email}}</span>
+                <i class="icon ion-ios-arrow-right"></i>
+            </ion-item>
+            <ion-item class="item-input item-icon-right" ng-click="actions.chgAccountNo()">
+                <span class="input-label">银行卡:</span>
+                <span>{{accountInfo.user.extInfo.yiyangbaoHealInce.accountNo}}</span>
+                <i class="icon ion-ios-arrow-right"></i>
+            </ion-item>
+            <ion-item class="item-divider">
+            </ion-item>
+            <ion-item class="item-input item-icon-right" ng-click="actions.chgPwd()">
+                <span class="input-label">修改登录密码:</span>
+                <span>******</span>
+                <i class="icon ion-ios-arrow-right"></i>
+            </ion-item>
+            <ion-item class="item-input item-icon-right" ng-click="actions.chgPwdQst()">
+                <span class="input-label">设置密保问题:</span>
+                <i class="icon ion-ios-arrow-right"></i>
+            </ion-item>
+            <ion-item class="item-input item-icon-right" ng-click="actions.chgDealPwd()">
+                <span class="input-label">修改支付密码:</span>
+                <span>******</span>
+                <i class="icon ion-ios-arrow-right"></i>
+            </ion-item>
+            <ion-item class="item-divider">
+            </ion-item>
+            <ion-item class="item-input item-icon-right" ng-click="actions.chgName()">
+                <span class="input-label">姓名:</span>
+                <span>{{accountInfo.user.personalInfo.name}}</span>
+                <i class="icon ion-ios-arrow-right"></i>
+            </ion-item>
+            <ion-item class="item-input item-select">
+                <span class="input-label">性别:</span>
+                <select ng-options="gender | mapGender for gender in config.genders" ng-change="actions.chgGender(accountInfo.user.personalInfo.gender)" ng-model="accountInfo.user.personalInfo.gender"></select>
+            </ion-item>
+            <ion-item class="item-input">
+                <span class="input-label">生日:</span>
+                <input type="date" ng-change="actions.chgBirthdate(accountInfo.user.personalInfo.birthdate)" ng-model="accountInfo.user.personalInfo.birthdate">
+            </ion-item>
+            <ion-item class="item-divider">
+            </ion-item>
+            <ion-item class="item-input">
+                <span class="input-label">证件类型:</span>
+                <span>{{accountInfo.user.personalInfo.idType}}</span>
+            </ion-item>
+            <ion-item class="item-input item-icon-right" ng-click="actions.chgIdNo()">
+                <span class="input-label">证件号码:</span>
+                <span>{{accountInfo.user.personalInfo.idNo | maskIdNo}}</span>
+                <i class="icon ion-ios-arrow-right"></i>
+            </ion-item>
+            <ion-item class="item-input item-icon-right" ng-click="actions.chgLocation()">
+                <span class="input-label">常住地址:</span>
+                <span>{{accountInfo.user.personalInfo.location.city.name}}</span>
+                <i class="icon ion-ios-arrow-right"></i>
+            </ion-item>
+            <ion-item class="item-input item-icon-right" ng-click="actions.chgIdImg()">
+                <span class="input-label">证件照片:</span>
+                <i class="icon ion-ios-arrow-right"></i>
+            </ion-item>
+        </ion-list>
+  	</ion-content>
+</ion-view>

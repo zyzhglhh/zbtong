@@ -1,0 +1,132 @@
+<ion-modal-view>
+
+  <ion-header-bar>
+    <div class="buttons">
+      <button class="button button-clear" ng-click="actions.closeLogin()">取消</button>
+    </div>
+    <h1 class="title">请登录</h1>
+    <div class="buttons">
+      <button class="button button-clear calm" ng-click="actions.prePwdReset()">忘记密码</button>
+    </div>
+  </ion-header-bar>
+  
+  <ion-content>
+    <!-- <form class="form-horizontal w5c-form" w5c-form-validate="" w5c-submit="actions.login()" role="form" novalidate name="form_user_login"> --><!-- 使用w5c-submit会导致移动设备虚拟键盘的go按钮失效, 需要使用ng-submit, 如下 -->
+    <form class="form-horizontal w5c-form" w5c-form-validate="" ng-submit="actions.login()" role="form" novalidate name="form_user_login">
+      <ion-list>
+        <!-- <ion-item class="item-input item-floating-label no-padding-tb"> --><!-- 这里按照文档用label标签的话会使button-clear-input失效 -->
+        <ion-item class="item-input no-padding-tb">
+          <!-- <div class="item-input"> --><!-- 去掉这里的div, 把item-input放到ion-item中, 显示略微有所不同 -->
+            <span class="input-label">用户名:</span>
+            <!-- <input type="text" autofocus="" placeholder="请输入用户名" w5c-unique-check="{url:'/check?username={{login.username}}'}" ng-model="login.username" required="" name="username" ng-pattern="/^[A-Za-z]{1}[0-9A-Za-z_]{1,19}$/"> -->
+            <input type="text" placeholder="请输入用户名" ng-model="login.username" required="" name="username" ng-pattern="/^[0-9A-Za-z_]{1,19}$/" class="min-height"><!-- 在input里面加 autofocus="" 属性有可能会导致页面向上弹出顶部 -->
+            <button-clear-input input="login.username"></button-clear-input>
+          <!-- </div> -->
+        </ion-item>
+        <!-- <ion-item class="item-input item-floating-label no-padding-tb"> -->
+        <ion-item class="item-input no-padding-tb">
+          <!-- <div class="item-input"> -->
+            <span class="input-label">密<span class="take-position">占</span>码:</span>
+            <input type="password" placeholder="请输入密码" ng-model="login.password" required="" name="password" ng-minlength="1" ng-maxlength="16" class="min-height">
+            <button-clear-input input="login.password"></button-clear-input>
+          <!-- </div> -->
+        </ion-item>
+        <!-- <div class="item item-toggle text-right">
+          <span>记住密码</span>
+          <label class="toggle toggle-positive">
+            <input type="checkbox">        
+            <div class="track">
+              <div class="handle"></div>
+            </div>
+          </label>
+        </div> -->
+        <ion-toggle ng-model="login.rememberme" toggle-class="toggle-calm" class="text-right">记住密码</ion-toggle>
+        <ion-item class="row no-padding-tb">
+          <div class="col"><button class="button button-block button-positive" type="submit">登录</button></div>
+          <div class="col"><button class="button button-block button-stable" type="reset">重置</button></div>
+          <div class="col"><button class="button button-block button-energized" ng-click="actions.closeLogin()" type="button">取消</button></div>
+          <!-- <div class="col"><button class="button button-block button-energized" ng-click="actions.preRegister()" type="button">注册</button></div> -->
+        </ion-item>
+        <ion-item ng-if="error.loginError" class="no-padding-tb"><!-- ng-if会创建子$scope, 因此需要采用数组方式传递变量(内存地址引用), 否则子$scope中对loginError的改变不会影响父$scope的loginError, 元素不会消失 -->
+          {{error.loginError}} <i class="icon ion-ios-close" ng-click="error.loginError = ''"></i>
+        </ion-item>
+      </ion-list>
+    </form>
+ 
+    <!-- <p><img class="full-image" src="img/ads/image_index_30.jpg"></p> -->
+
+
+    <!-- 本页面的style加载后会影响到后面所有的页面(css不会因为跳转到其他页面而失效)，和在index.html里面引用或加载效果一样 -->
+    <style type="text/css">
+      /*html, body, .pane, div {
+        height: 100%;
+        overflow: hidden;
+      }*/
+      /*.fullbox {
+        width: 100%;
+        height: 100%;
+      }*/
+      /*要把所有的div都设置成100%高度, 本质是要把所有的父元素都设置成100%高度, 不然光设置某一个div, 会受父元素的影响, 不能占满屏幕高度*/
+      /*这里不能对所有的div都设置高度，会影响到后面所有的页面，需单独设置一个元素fullheight*/
+      /*ion-slide-box和ion-slide必须设置高度，否则会影响到其内部的元素，造成ion-header-bar和ion-content都不显示*/
+      /*div:not(.nofullheight) {*/
+      .fullheight {
+        height: 280px;
+      }
+      .blue {
+        background-color: #BFFDF5;
+      }
+      .yellow {
+        background-color: #FAFEBD;
+      }
+      .red {
+        background-color: #FFCCF7;
+      }
+      .downside {
+        width: 100%;
+        position: fixed;
+        bottom: 20%;
+      }
+      .clickin {
+        display: block;
+        margin-right: auto;
+        margin-left: auto;
+        max-width: 50%;
+      }
+    </style>
+
+
+    <!-- <ion-content scroll="false"> -->
+      <ion-slide-box show-pager="true" does-continue="true" auto-play="true" class="fullheight" slide-interval="2000">
+        <ion-slide class="fullheight">
+          <ion-content scroll="false">
+            <div class="fullheight">
+              <img class="full-image" src="img/ads/ad-lng-01.jpg">
+            </div>
+          </ion-content>
+        </ion-slide>
+        <ion-slide class="fullheight">
+          <ion-content scroll="false">
+            <div class="fullheight">
+              <img class="full-image" src="img/ads/ad-lng-02.jpg">
+            </div>
+          </ion-content>
+        </ion-slide>
+        <ion-slide class="fullheight">
+          <ion-content scroll="false">
+            <div class="fullheight">
+              <img class="full-image" src="img/ads/ad-lng-03.jpg">
+            </div>
+          </ion-content>
+        </ion-slide>
+        <ion-slide class="fullheight">
+          <ion-content scroll="false">
+            <div class="fullheight">
+              <img class="full-image" src="img/ads/ad-lng-04.jpg">
+            </div>
+          </ion-content>
+        </ion-slide>
+      </ion-slide-box>
+    <!-- </ion-content> -->
+  </ion-content>
+</ion-modal-view>

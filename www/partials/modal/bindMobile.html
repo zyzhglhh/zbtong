@@ -1,0 +1,52 @@
+<ion-modal-view>
+
+  <ion-header-bar>
+    <div class="buttons">
+      <button class="button button-clear" ng-click="actions.cancel()"><span class="primary" ng-if="!config.notCloseAble">取消</span></button>
+    </div>
+    <h1 class="title">{{config.title}}</h1>
+    <!-- <div class="buttons">
+      <button class="button button-clear" ng-click="actions.submit()"><span class="primary">提交</span></button>
+    </div> -->
+  </ion-header-bar>
+  
+  <ion-content scroll="false">
+    <ion-list>
+      <ion-item class="item-input has-right-button no-border-bottom-color">
+        <span class="input-label short">手机号:</span>
+        <input type="text" placeholder="{{data.mobile | maskMobile}}" ng-if="data.smsType !== '-initBind' && data.smsType !== '-findPwd'" disabled>
+        <input type="text" placeholder="{{config.msg}}" ng-model="data.mobile" required ng-if="data.smsType === '-initBind' || data.smsType === '-findPwd'">
+        <button-clear-input input="data.mobile" ng-if="data.smsType === '-initBind' || data.smsType === '-findPwd'"></button-clear-input>
+        <button class="button button-calm button-small padding-horizontal margin-right text-large" ng-click="actions.send()" ng-disabled="config.timer > 1">{{config.timer > 1 && (config.timer + 's') || '发送'}}</button>
+      </ion-item>
+      <ion-item class="item-input has-right-button no-border-top-color">
+        <span class="input-label short"></span>
+        <input type="text" placeholder="请输入短信验证码" ng-model="data.verify" required>
+        <button-clear-input input="data.verify"></button-clear-input>
+        <button class="button button-calm button-small padding-horizontal margin-right text-large" ng-click="actions.submit()">验证</button>
+      </ion-item>
+      <ion-item class="item-input has-right-button no-border-bottom-color" ng-if="data.smsType === '-chgBind'">
+        <span class="input-label short">新手机号:</span>
+        <input type="text" placeholder="请输入新手机号" ng-model="data.newMobile" required>
+        <button-clear-input input="data.newMobile"></button-clear-input>
+      </ion-item>
+      <ion-item class="item-input has-right-button no-border-bottom-color" ng-if="data.smsType === '-findPwd' || data.smsType === '-findDealPwd'">
+        <span class="input-label short">新设密码:</span>
+        <input type="password" placeholder="请输入新密码" ng-model="data.newPassword" required>
+        <button-clear-input input="data.newPassword"></button-clear-input>
+      </ion-item>
+      <ion-item class="item-input has-right-button no-border-bottom-color" ng-if="data.smsType === '-findPwd' || data.smsType === '-findDealPwd'">
+        <span class="input-label short">重复密码:</span>
+        <input type="password" placeholder="请重复新密码" ng-model="data.repeatPwd" required>
+        <button-clear-input input="data.repeatPwd"></button-clear-input>
+      </ion-item>
+      <ion-item ng-if="error.bindMobileError" class="no-padding-tb"><!-- ng-if会创建子$scope, 因此需要采用数组方式传递变量(内存地址引用), 否则子$scope中对loginError的改变不会影响父$scope的loginError, 元素不会消失 -->
+        {{error.bindMobileError}} <i class="icon ion-ios-close" ng-click="error.bindMobileError = ''"></i>
+      </ion-item>
+      <ion-item ng-if="data.repeatPwd !== data.newPassword" class="no-padding-tb">
+          {{data.repeatPwd !== data.newPassword && '两次输入的密码不同' || ''}}
+      </ion-item>
+    </ion-list>
+  </ion-content>
+
+</ion-modal-view>

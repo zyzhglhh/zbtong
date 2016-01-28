@@ -1,0 +1,38 @@
+<ion-view view-title="专员中心">
+
+    <ion-nav-buttons side="right">
+        <!-- <span class="two-buttons"> -->
+            <a class="button button-icon icon ion-ios-gear" href="#/serv/settings"></a>
+        <!-- </span> -->
+    </ion-nav-buttons>
+
+    <ion-content>
+
+        <ion-refresher pulling-text="释放刷新..." refreshing-text="正在刷新..." on-refresh="actions.doRefresh()"></ion-refresher>
+        
+        <ion-list class="card">
+            <a class="item item-avatar item-icon-right" href="#/serv/mine">
+                <img ng-src="{{info.head.Url || 'img/defaultAvatar.png'}}" class="round-avatar">
+                <h2>{{info.personalInfo.name}}</h2>
+                <p><span ng-if="info.mobile">手机: {{info.mobile | maskMobile}}</span></p>
+                <i class="icon ion-ios-arrow-right"></i>
+            </a>
+            <!-- <div class="item text-center"> -->
+                <!-- <img ng-repeat="photo in info.photos" ng-src="{{photo.Url}}" class="padding-top center-block img-responsive"> -->
+                <!-- <ion-item ng-repeat="img in info.personalInfo.idImg">
+                    <img ng-src="{{img.Url}}" alt="{{img.title}}" class="img-responsive center-block">
+
+                    <ion-option-button class="button-info"
+                        ng-click="actions.deleteIdImg(item, $index)">
+                        删除
+                    </ion-option-button>
+                </ion-item> -->
+            <!-- </div> -->
+            <ion-item class="item-text-wrap text-indent">
+                {{info.personalInfo.intro}}
+                <img ng-repeat="img in info.idImgThumb" ng-src="{{img.urlThumb}}" alt="{{img.title}}" class="padding-top center-block img-responsive" ng-click="actions.viewer($index)">
+            </ion-item>
+        </ion-list>
+    </ion-content>
+
+</ion-view>

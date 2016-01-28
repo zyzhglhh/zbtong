@@ -1,0 +1,30 @@
+<ion-modal-view>
+
+  <ion-header-bar>
+    <div class="buttons">
+      <button class="button button-clear" ng-click="actions.cancel()"><span class="primary" ng-if="!config.notCloseAble">取消</span></button>
+    </div>
+    <h1 class="title">{{config.title}}</h1>
+    <div class="buttons">
+      <button class="button button-clear" ng-click="actions.submit()"><span class="primary">提交</span></button>
+    </div>
+  </ion-header-bar>
+  
+  <ion-content scroll="false">
+    <ion-list>
+      <ion-item class="item-input" ng-if="!textarea">
+        <span class="input-label">{{config.title.slice(2)}}:</span>
+        <input type="text" placeholder="请输入{{config.title.slice(2)}}" ng-model="data.value" required>
+        <button-clear-input input="data.value"></button-clear-input>
+      </ion-item>
+      <ion-item class="item-input no-item-border" ng-if="textarea">
+        <textarea placeholder="请输入{{config.title.slice(2)}}" ng-model="data.value" minlength="1" maxlength="1500" rows="5"></textarea><!-- 这里rows如果设置很大, 由于其是固定的, 不是自适应的, 会导致在手机等屏幕上运行时, 虚拟键盘弹出后把textarea顶出屏幕 -->
+      </ion-item>
+      <button class="button button-clear center-block" ng-click="data.value = ''" ng-if="textarea && data.value">清空输入</button>
+      <ion-item ng-if="error.updateError" class="no-padding-tb"><!-- ng-if会创建子$scope, 因此需要采用数组方式传递变量(内存地址引用), 否则子$scope中对loginError的改变不会影响父$scope的loginError, 元素不会消失 -->
+        {{error.updateError}} <i class="icon ion-ios-close" ng-click="error.updateError = ''"></i>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+
+</ion-modal-view>

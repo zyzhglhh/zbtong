@@ -1,0 +1,70 @@
+<ion-view view-title="消费明细">
+
+    <ion-nav-buttons side="right">
+        <span class="two-buttons">
+            <a class="button button-icon icon ion-ios-minus-outline" ng-click="actions.showDelete()" ng-if="item.receiptImg.length && !(item.status.isAudited || item.status.isRevoked)"></a>
+            <a class="button button-icon icon ion-ios-camera-outline" ng-click="actions.takePic()" ng-if="item && item.receiptImg.length >= 0 && !(item.status.isAudited || item.status.isRevoked)"></a>
+            <!-- <button class="button button-icon icon ion-ios-plus-outline" publish-info="'参数'"></button> -->
+        </span>
+    </ion-nav-buttons>
+
+    <ion-content>
+
+        <ion-refresher pulling-text="释放刷新..." refreshing-text="正在刷新..." on-refresh="actions.doRefresh()"></ion-refresher>
+
+        <ion-list delegate-handle="consInfo">
+            <ion-item class="item-input"><!-- item-input类可以对非input元素进行类似的布局, 这里将第二个span元素当作input元素(位置效果和input一样) -->
+                <span class="input-label">用户:</span>
+                <span>{{item.userId.personalInfo.name}}</span>
+            </ion-item>
+            <ion-item class="item-input">
+                <span class="input-label">时间:</span>
+                <span>{{item.time | date: 'yyyy-MM-dd'}}</span>
+            </ion-item>
+            <ion-item class="item-input">
+                <span class="input-label">金额:</span>
+                <span>{{item.money | currency: '￥'}}</span>
+            </ion-item>
+            <ion-item class="item-input" ng-if="item.note">
+                <span class="input-label">备注:</span>
+                <span>{{item.note}}</span>
+            </ion-item>
+            <!-- <ion-item class="row" ng-if="item.receiptImg.length">
+                <div class="col col-33" ng-repeat="img in item.receiptImg">
+                    <img ng-src="{{img.Url}}" alt="{{img.title}}" class="img-responsive center-block">
+                </div>
+            </ion-item> -->
+        </ion-list>
+        <ion-list delegate-handle="imgList" show-delete="pageHandler.showDelete" can-swipe="!(item.status.isAudited || item.status.isRevoked)" ng-if="item.receiptImg.length">
+            <!-- <ion-item class="item-input" ng-if="pageHandler.progress > 0">
+                <span class="input-label">上传进度-{{pageHandler.progress}}%:</span> -->
+            <ion-item ng-if="pageHandler.progress">
+                <progress value="{{pageHandler.progress}}" max="100"></progress>
+            </ion-item>
+            <ion-item ng-if="error.receiptError" class="no-padding-tb">
+                {{error.receiptError}} <i class="icon ion-ios-close" ng-click="error.receiptError = ''"></i>
+            </ion-item>
+            <ion-item ng-repeat="img in item.receiptImgThumb">
+                <img ng-src="{{img.urlThumb}}" alt="{{img.title}}" class="img-responsive center-block" ng-click="actions.viewer($index, 0)">
+
+                <p class="center-block" style="width: 10px;">{{$index + 1}}</p>
+
+                <ion-option-button class="button-info"
+                    ng-click="actions.deleteImg(item, $index)">
+                    删除
+                </ion-option-button>
+                <ion-delete-button class="ion-minus-circled" 
+                    ng-click="actions.deleteImg(item, $index)">
+                </ion-delete-button>
+            </ion-item>
+            <button class="button button-full button-energized" ng-click="actions.submit()" ng-if="!item.status.isSubmitted">提交消费记录</button>
+        </ion-list>
+        <button class="button button-full button-assertive" ng-click="actions.revoking()" ng-if="item.consType === 'medi' && !item.status.isAudited" ng-disabled="item.status.isRevoked">{{item.status.isRevoked && '已退款' || '撤销消费记录'}}</button>
+        <!-- <ion-list delegate-handle="userIdImg" ng-if="item.userId.personalInfo.idImg.length">
+            <ion-item ng-repeat="img in item.idImgThumb">
+                <img ng-src="{{img.urlThumb}}" alt="{{img.title}}" class="img-responsive center-block" ng-click="actions.viewer($index, 1)">
+            </ion-item>
+        </ion-list> -->
+    </ion-content>
+
+</ion-view>

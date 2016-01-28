@@ -1,0 +1,177 @@
+/* Empty. Add your own CSS if you like */
+/* for directives.js */
+	/* buttonClearInput */
+	.item-input .button.button-icon.input-button,
+	.item-input-inset .button.button-icon.input-button {
+	    position: absolute;
+	    right: 1em;
+	    top: 0;
+	    color: #bbb;
+	}
+	.item-input.no-padding-tb .button.button-icon.input-button {
+	    top: 2px;
+	}
+	.item-input.item-floating-label .button.button-icon.input-button {
+	    top: 1.5em;
+	}
+	.item-input.item-stacked-label .button.button-icon.input-button {
+	    top: 1.5em;
+	}
+	.item-input.has-right-button .button.button-icon.input-button {
+	    right: 5em;
+	}
+
+	/* smsX */
+	.input-label.short {
+		width: 20%;
+	}
+	.margin-right {
+		margin-right: 1em !important;
+	}
+	.text-large {
+		font-size: 1em;
+	}
+	.no-border-top-color {
+		/*border-top-color: transparent;*/
+	}
+	.no-border-bottom-color {
+		/*border-bottom-color: transparent;*/
+	}
+
+/* for modal templates */
+	/* modal/login.html */
+	.no-padding {
+		padding: 0;
+	}
+	.no-padding-tb {
+		padding-top: 0;
+		padding-bottom: 0;
+	}
+	.text-right {
+		text-align: right;
+	}
+	.take-position {/*透明占位符*/
+		color: transparent;
+	}
+	/* modal/update.html */
+	.no-item-border {
+		border-width: 0;
+	}
+	.button-clear.button-clear.calm {
+		color: #11c1f3;
+	}
+	.no-margin-vertical {
+		margin-top: 0 !important;
+		margin-bottom: 0 !important;
+	}
+
+	.item-input.item-select select {
+		line-height: 1;
+	}
+
+/* for layout templates */
+	/* sideMenuLeft.html */
+	.round-avatar {
+		border-radius: 50%;
+	}
+
+	.nav-icon-avatar{
+		border-radius: 50%;
+		height:60px;
+		width: 60px;
+	}
+
+/* for about templates */
+	/* aboutUs.html */
+	.logo {
+		width: 72px;
+	}
+	/*.item-text-wrap.item {
+		border-color: #FB9E03;
+		color: #000;
+	}
+	a.item {
+		border-top-color: #FB9E03;
+	}
+	.bar.bar-stable {
+		border-bottom-color: #FB9E03;
+	}*/
+	/*.padding-top {
+		padding-top: 1em;
+	}*/
+	/* agreement.html */
+	.no-margin {
+		margin: 0;
+	}
+	.text-indent {
+		text-indent: 2em;
+	}
+	.item-text-wrap {
+		text-align: justify;  /*(火狐)*/
+		/*text-justify: distribute;*/  /*(IE)*/
+	}
+
+/* for user templates */
+	/*针对android平台(.platform-android)，将右边按钮组的最小宽度设置为100px，否则在android 4.4.x原生浏览器上，header右边按钮组中放两个按钮就会换行显示*/
+	.platform-android .buttons-right .right-buttons .two-buttons { 
+	    min-width: 100px;
+	}
+	.center-block, .center-block canvas.qrcode {
+		display: block;
+		margin-right: auto;
+		margin-left: auto;
+	}
+	.text-middle h2,
+	.text-middle p {  /*让任何元素垂直居中: http://zerosixthree.se/vertical-align-anything-with-just-3-lines-of-css/, 无效!!!!!!!*/
+		/*position: relative;
+  		top: 50%;
+  		-webkit-transform: translateY(-50%);
+  		-ms-transform: translateY(-50%);
+  		transform: translateY(-50%);*/
+  		padding-top: 2em;
+  		/*display: inline-block;*/
+  		/*height: 74px;
+  		line-height: 74px;*/
+	}
+	.item-thumbnail-right.item-icon-right>img:first-child {
+		right: 3em;
+	}
+	.fix-height-185 {
+		height: 185px;
+	}
+
+/* for medi templates */
+	/* barcode.html */
+	.item-input input.min-height {
+		min-height: 50px;
+	}
+	/* ConsDetail.html*/
+	.img-responsive,
+	.responsive-content img,
+	.thumbnail > img,
+	.thumbnail a > img,
+	.carousel-inner > .item > img,
+	.carousel-inner > .item > a > img {
+		display: block;
+		max-width: 100%;
+		height: auto;
+	}
+	.center-block {
+		display: block;
+		margin-right: auto;
+		margin-left: auto;
+	}
+	.list .item .item-content {
+		padding-right: 1em;
+	}
+	/* ConsList.html*/
+	.card.item-text-wrap.item-icon-right .icon {
+	  	right: 0;
+	}
+	.cons-collection-repeat-height {
+	  	/*height: 110px;*/
+	}
+	.no-text-decoration {
+		/*color: #000000 !important;*/
+		text-decoration: none;
+	}
